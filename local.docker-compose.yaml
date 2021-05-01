@@ -1,0 +1,23 @@
+version: "2"
+services:
+  app:
+    container_name: app
+    restart: always
+    build: .
+    ports:
+      - "1337:1337"
+    links:
+      - mongo
+  parsedashboard:
+    container_name: dashboard_app
+    restart: always
+    build: dashboard/.
+    ports:
+      - "4040:4040"
+    links:
+      - app
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db

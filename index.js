@@ -1,15 +1,16 @@
+require('dotenv').config();
 const express = require('express');
 const { default: ParseServer, ParseGraphQLServer } = require('parse-server');
 
 const app = express();
 
 const parseServer = new ParseServer({
-    databaseURI: 'mongodb://mongo:27017/dev',
+    databaseURI: process.env.MONGO_DATABASE_URI,
     cloud: 'cloud/main.js',
     appId: 'appId',
     masterKey: 'masterKey',
-    serverURL: 'http://app:1337/parse',
-    publicServerURL: 'http://app:1337/parse'
+    serverURL: 'https://0.0.0.0:8080/parse',
+    publicServerURL: 'https://0.0.0.0:8080/parse'
 });
 
 const parseGraphQLServer = new ParseGraphQLServer(
@@ -24,6 +25,6 @@ app.use('/parse', parseServer.app);
 parseGraphQLServer.applyGraphQL(app); 
 parseGraphQLServer.applyPlayground(app); 
 
-app.listen(1337, function () {
-    console.log('parse-server running on port 1337.');
+app.listen(8080, function () {
+    console.log(`parse-server running on port ${process.env.PORT}.`);
 });
