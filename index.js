@@ -9,8 +9,8 @@ const parseServer = new ParseServer({
     cloud: 'cloud/main.js',
     appId: 'appId',
     masterKey: 'masterKey',
-    serverURL: 'https://0.0.0.0:8080/parse',
-    publicServerURL: 'https://0.0.0.0:8080/parse'
+    serverURL: `https://0.0.0.0:${process.env.PORT}/parse`,
+    publicServerURL: `https://0.0.0.0:${process.env.PORT}/parse`
 });
 
 const parseGraphQLServer = new ParseGraphQLServer(
@@ -25,6 +25,6 @@ app.use('/parse', parseServer.app);
 parseGraphQLServer.applyGraphQL(app); 
 parseGraphQLServer.applyPlayground(app); 
 
-app.listen(8080, function () {
+app.listen(process.env.PORT, function () {
     console.log(`parse-server running on port ${process.env.PORT}.`);
 });
