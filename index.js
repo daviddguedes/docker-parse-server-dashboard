@@ -21,6 +21,8 @@ const parseGraphQLServer = new ParseGraphQLServer(
     }
 );
 
+app.get('/', (req, res) => res.send('Running...'));
+
 app.use('/parse', parseServer.app); 
 parseGraphQLServer.applyGraphQL(app); 
 parseGraphQLServer.applyPlayground(app); 
