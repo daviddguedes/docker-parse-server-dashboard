@@ -9,8 +9,8 @@ const parseServer = new ParseServer({
     cloud: 'cloud/main.js',
     appId: 'appId',
     masterKey: 'masterKey',
-    serverURL: `0.0.0.0:${process.env.PORT}/parse`,
-    publicServerURL: `0.0.0.0:${process.env.PORT}/parse`
+    serverURL: `https://0.0.0.0:${process.env.PORT}/parse`,
+    publicServerURL: `https://0.0.0.0:${process.env.PORT}/parse`
 });
 
 const parseGraphQLServer = new ParseGraphQLServer(
