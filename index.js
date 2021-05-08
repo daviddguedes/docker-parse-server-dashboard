@@ -11,7 +11,10 @@ const parseServer = new ParseServer({
     appId: 'appId',
     masterKey: 'masterKey',
     serverURL: `https://nameless-caverns-38675.herokuapp.com/parse`,
-    publicServerURL: `https://nameless-caverns-38675.herokuapp.com/parse`
+    publicServerURL: `https://nameless-caverns-38675.herokuapp.com/parse`,
+    liveQuery: {
+        classNames: ['Event']
+    }
 });
 
 const parseGraphQLServer = new ParseGraphQLServer(
@@ -24,10 +27,10 @@ const parseGraphQLServer = new ParseGraphQLServer(
 
 app.get('/', (req, res) => res.send('Running...'));
 
-app.use('/parse', parseServer.app); 
-parseGraphQLServer.applyGraphQL(app); 
-parseGraphQLServer.applyPlayground(app); 
+app.use('/parse', parseServer.app);
+parseGraphQLServer.applyGraphQL(app);
+parseGraphQLServer.applyPlayground(app);
 
-app.listen(PORT, function () {
-    console.log(`parse-server running on port ${PORT}.`);
-});
+let httpServer = require('http').createServer(app);
+httpServer.listen(PORT);
+ParseServer.createLiveQueryServer(httpServer);
